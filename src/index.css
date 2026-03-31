@@ -1,0 +1,246 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Background: cool off-white */
+    --background: 220 20% 97%;
+    --foreground: 222 47% 11%;
+
+    /* Cards: white */
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    /* Primary: #267351 forest green */
+    --primary: 152 50% 30%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: #305c54 dark teal */
+    --secondary: 168 32% 27%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted: soft sage */
+    --muted: 148 18% 81%;
+    --muted-foreground: 215 25% 30%;
+
+    /* Accent: soft sage */
+    --accent: 148 18% 81%;
+    --accent-foreground: 222 47% 11%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 88%;
+    --input: 220 13% 88%;
+    --ring: 152 50% 30%;
+
+    --radius: 0.75rem;
+
+    /* Charts */
+    --chart-1: 152 50% 30%;
+    --chart-2: 168 32% 27%;
+    --chart-3: 148 18% 55%;
+    --chart-4: 148 18% 70%;
+    --chart-5: 220 13% 55%;
+  }
+}
+
+@layer base {
+  html {
+    font-size: 16px;
+  }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    line-height: 1.6;
+  }
+
+  /* Skip-to-content link for keyboard users */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 1rem;
+    z-index: 9999;
+    padding: 0.5rem 1.25rem;
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  .skip-link:focus {
+    left: 1rem;
+  }
+
+  /* Respect reduced-motion preferences */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ─── HIGH CONTRAST MODE ──────────────────────────────────────────────
+   Activated by AccessibilityProvider (html.high-contrast class).
+   Also auto-activates when OS prefers-contrast: high is set.
+───────────────────────────────────────────────────────────────────── */
+html.high-contrast {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 3%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 3%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 3%;
+  --primary: 152 100% 18%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 168 100% 13%;
+  --secondary-foreground: 0 0% 100%;
+  --muted: 0 0% 93%;
+  --muted-foreground: 0 0% 8%;
+  --accent: 0 0% 90%;
+  --accent-foreground: 0 0% 3%;
+  --destructive: 0 100% 33%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 0 0% 18%;
+  --input: 0 0% 18%;
+  --ring: 0 0% 0%;
+}
+
+html.high-contrast body {
+  -webkit-font-smoothing: auto;
+}
+
+/* Remove decorative shadows in high contrast — rely on borders instead */
+html.high-contrast [class*="shadow"] {
+  box-shadow: none !important;
+}
+
+html.high-contrast .border,
+html.high-contrast [class*="border-"] {
+  border-width: 2px;
+}
+
+/* Mirror high-contrast overrides for OS-level preference */
+@media (prefers-contrast: high) {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3%;
+    --primary: 152 100% 18%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 168 100% 13%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 93%;
+    --muted-foreground: 0 0% 8%;
+    --accent: 0 0% 90%;
+    --accent-foreground: 0 0% 3%;
+    --destructive: 0 100% 33%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 0%;
+  }
+}
+
+/* ─── FONT SCALING ───────────────────────────────────────────────────
+   Applied to <html> by AccessibilityProvider.
+   All rem-based Tailwind utilities cascade automatically.
+───────────────────────────────────────────────────────────────────── */
+html.font-large {
+  font-size: 18px;
+}
+
+html.font-xlarge {
+  font-size: 20px;
+}
+
+/* ─── USER-CONTROLLED REDUCE MOTION ─────────────────────────────────
+   Activated manually. Supplements the OS prefers-reduced-motion query.
+───────────────────────────────────────────────────────────────────── */
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* ─── WINDOWS HIGH CONTRAST / FORCED COLORS ─────────────────────────
+   Ensures the app remains usable in Windows HCM and similar modes.
+   Use system color keywords so the OS controls all colours.
+───────────────────────────────────────────────────────────────────── */
+@media (forced-colors: active) {
+  .skip-link {
+    forced-color-adjust: none;
+    background: ButtonText;
+    color: ButtonFace;
+  }
+
+  :focus-visible {
+    outline: 3px solid ButtonText;
+    outline-offset: 3px;
+  }
+
+  [role="switch"] {
+    forced-color-adjust: none;
+    border: 2px solid ButtonText;
+  }
+
+  button,
+  [role="button"] {
+    border: 1px solid ButtonText;
+  }
+}
+
+/* ─── SIMPLE MODE ────────────────────────────────────────────────────
+   Activated by AccessibilityProvider (html.simple-mode class).
+   Targets elderly & low-digital-literacy users.
+   22px base causes all rem Tailwind utilities to scale up proportionally.
+───────────────────────────────────────────────────────────────────── */
+html.simple-mode {
+  font-size: 22px;
+  line-height: 1.8;
+  --radius: 1.25rem;
+}
+
+html.simple-mode body {
+  letter-spacing: 0.01em;
+}
+
+/* Larger nav tap targets in the citizen bottom nav */
+html.simple-mode .simple-nav-item {
+  min-height: 72px;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Ensure interactive elements are never too small */
+html.simple-mode button,
+html.simple-mode [role="button"],
+html.simple-mode a {
+  min-height: 52px;
+}
+
+/* Thicker focus ring so it's unmissable */
+html.simple-mode :focus-visible {
+  outline: 4px solid hsl(var(--ring));
+  outline-offset: 4px;
+}
