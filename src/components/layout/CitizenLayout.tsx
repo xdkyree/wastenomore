@@ -30,9 +30,9 @@ export function CitizenLayout({ children }: CitizenLayoutProps) {
   }, [location.pathname])
 
   return (
-    <div className="min-h-screen bg-background flex justify-center">
+    <div className="min-h-screen bg-background flex justify-center md:items-center md:p-4">
       <AccessibilityToolbar showSpeak placement="bottom-above-nav" />
-      <div className="w-full max-w-[420px] min-h-screen bg-white flex flex-col shadow-lg relative">
+      <div className="relative w-full min-h-screen bg-white flex flex-col shadow-lg md:h-[calc(100vh-2rem)] md:w-auto md:min-h-0 md:aspect-[9/19.5] md:max-w-none md:overflow-hidden md:rounded-[2rem] md:border">
         {/* Status bar area */}
         <div className={cn("flex items-center justify-between px-5 bg-primary", simpleMode ? "h-16" : "h-12")}>
           <span className={cn("text-white font-semibold tracking-wide", simpleMode ? "text-base" : "text-sm")}>WASTENOMORE</span>
@@ -66,7 +66,7 @@ export function CitizenLayout({ children }: CitizenLayoutProps) {
 
         {/* Bottom nav */}
         <nav
-          className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[420px] border-t bg-white"
+          className="absolute bottom-0 left-0 w-full border-t bg-white"
           aria-label="Main navigation"
           role="navigation"
         >

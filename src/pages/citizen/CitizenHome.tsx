@@ -1,21 +1,23 @@
 import { Link } from "react-router-dom"
-import { Calendar, Search, AlertCircle, BookOpen, Star, TrendingUp, Recycle, CreditCard } from "lucide-react"
+import { Search, AlertCircle, BookOpen, Star, TrendingUp, Recycle, CreditCard, Map } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { invoices } from "@/data/mock"
 
-const outstandingAmount = invoices
-  .filter((i) => i.status === "outstanding" || i.status === "overdue")
-  .reduce((s, i) => s + i.amount, 0)
+const annualCollectionInvoice = invoices.find(
+  (i) => i.type === "annual_collection" && i.status === "outstanding"
+)
 
-const hasOverdue = invoices.some((i) => i.status === "overdue")
+const outstandingAmount = annualCollectionInvoice
+  ? annualCollectionInvoice.amount
+  : 0
 
 const quickActions = [
-  { label: "Pickup Schedule", icon: Calendar, href: "/citizen/schedule", color: "bg-primary", desc: "Next: Plastic — Tomorrow" },
-  { label: "Sort an Item", icon: Search, href: "/citizen/sort", color: "bg-secondary", desc: "Find the right bin" },
   { label: "Report Issue", icon: AlertCircle, href: "/citizen/report", color: "bg-amber-500", desc: "Overflow, missed pick up…" },
+  { label: "Sort an Item", icon: Search, href: "/citizen/sort", color: "bg-secondary", desc: "Find the right bin" },
   { label: "Education", icon: BookOpen, href: "/citizen/education", color: "bg-sky-500", desc: "Tips & local news" },
+  { label: "Performance Map", icon: Map, href: "/citizen/performance-map", color: "bg-emerald-600", desc: "Area trends near you" },
 ]
 
 export default function CitizenHome() {
@@ -48,14 +50,14 @@ export default function CitizenHome() {
         <p className="text-xs uppercase tracking-wide text-muted-foreground font-medium mb-3">Quick Actions</p>
         <div className="grid grid-cols-2 gap-3">
           {quickActions.map((a) => (
-            <Link key={a.href} to={a.href}>
-              <Card className="hover:shadow-sm transition-shadow">
-                <CardContent className="p-4 flex flex-col gap-2">
+            <Link key={a.href} to={a.href} className="block h-full">
+              <Card className="h-full hover:shadow-sm transition-shadow">
+                <CardContent className="p-4 flex h-full flex-col gap-2">
                   <div className={`w-9 h-9 rounded-lg ${a.color} flex items-center justify-center`}>
                     <a.icon className="w-4 h-4 text-white" />
                   </div>
-                  <p className="text-sm font-medium leading-tight">{a.label}</p>
-                  <p className="text-[11px] text-muted-foreground">{a.desc}</p>
+                  <p className="text-[13px] font-medium leading-tight tracking-tight">{a.label}</p>
+                  <p className="text-[11px] leading-snug text-muted-foreground">{a.desc}</p>
                 </CardContent>
               </Card>
             </Link>
@@ -65,17 +67,19 @@ export default function CitizenHome() {
 
       {/* Pay bill banner — shown when there is an outstanding/overdue amount */}
       {outstandingAmount > 0 && (
-        <Link to="/citizen/pay" aria-label={`Pay your waste bill: €${outstandingAmount.toFixed(2).replace(".", ",")} outstanding`}>
-          <Card className={`border-2 ${hasOverdue ? "border-destructive/40 bg-destructive/5" : "border-amber-300/50 bg-amber-50/50"}`}>
+        <Link
+          to="/citizen/pay"
+          className="block mt-1"
+          aria-label={`Pay your waste bill: €${outstandingAmount.toFixed(2).replace(".", ",")} outstanding`}
+        >
+          <Card className="border-2 border-amber-300/50 bg-amber-50/50">
             <CardContent className="p-4 flex items-center gap-3">
-              <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${hasOverdue ? "bg-destructive/10" : "bg-amber-100"}`}>
-                <CreditCard className={`w-4 h-4 ${hasOverdue ? "text-destructive" : "text-amber-600"}`} aria-hidden="true" />
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 bg-amber-100">
+                <CreditCard className="w-4 h-4 text-amber-600" aria-hidden="true" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-semibold text-foreground">
-                  {hasOverdue ? "Overdue invoice" : "Invoice due soon"}
-                </p>
-                <p className="text-xs text-muted-foreground">€{outstandingAmount.toFixed(2).replace(".", ",")} outstanding</p>
+                <p className="text-sm font-semibold text-foreground">Annual collection fee</p>
+                <p className="text-xs text-muted-foreground">€{outstandingAmount.toFixed(2).replace(".", ",")} due</p>
               </div>
               <span className="text-xs font-semibold text-primary">Pay now →</span>
             </CardContent>

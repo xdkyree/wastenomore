@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
-import { AlertCircle, CheckCircle2 } from "lucide-react"
+import { AlertCircle, CheckCircle2, Camera } from "lucide-react"
 
 const incidentTypes = [
   { value: "overflow", label: "Overflowing bin" },
@@ -60,6 +60,11 @@ export default function IncidentReporting() {
       </div>
       <p className="text-sm text-muted-foreground">Help your municipality by flagging problems near you.</p>
 
+      <Button type="button" variant="outline" className="w-full justify-center gap-2">
+        <Camera className="w-4 h-4" />
+        Identify Bin by QR
+      </Button>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-1.5">
           <Label>Type of issue *</Label>
@@ -95,9 +100,10 @@ export default function IncidentReporting() {
           />
         </div>
 
-        <div className="rounded-lg border border-dashed border-muted-foreground/30 p-4 text-center text-xs text-muted-foreground">
-          📷 Photo attachment — coming soon
-        </div>
+        <Button type="button" variant="outline" className="w-full gap-2">
+          <Camera className="w-4 h-4" />
+          Take Photo
+        </Button>
 
         <Button type="submit" className="w-full">Submit Report</Button>
       </form>

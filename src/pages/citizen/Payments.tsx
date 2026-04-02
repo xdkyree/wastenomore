@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { cn } from "@/lib/utils"
 import {
-  CreditCard, CheckCircle2, AlertTriangle, Clock, ChevronRight,
+  CreditCard, CheckCircle2, Clock,
   Landmark, Smartphone, Circle, ArrowLeft,
 } from "lucide-react"
 
@@ -309,9 +309,10 @@ export default function Payments() {
     paidIds.includes(inv.id) ? { ...inv, status: "paid" as const } : inv
   )
 
-  const outstanding = allInvoices.filter((i) => i.status === "outstanding" || i.status === "overdue")
-  const history = allInvoices.filter((i) => i.status === "paid")
+  const outstanding = allInvoices.filter((i) => i.type === "annual_collection" && i.status === "outstanding")
+  const history = allInvoices.filter((i) => i.status === "paid" && i.type !== "annual_collection")
   const totalDue = outstanding.reduce((s, i) => s + i.amount, 0)
+  const expectedLowerPayment = 30
 
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedInvoices, setSelectedInvoices] = useState<Invoice[]>([])
@@ -351,27 +352,23 @@ export default function Payments() {
       {outstanding.length > 0 ? (
         <Card className={cn(
           "border-2",
-          outstanding.some((i) => i.status === "overdue")
-            ? "border-destructive/40 bg-destructive/5"
-            : "border-amber-300/50 bg-amber-50/50"
+          "border-amber-300/50 bg-amber-50/50"
         )}>
           <CardContent className="p-5">
             <div className="flex items-start gap-3 mb-4">
-              <div className={cn(
-                "w-9 h-9 rounded-lg flex items-center justify-center shrink-0",
-                outstanding.some((i) => i.status === "overdue") ? "bg-destructive/10" : "bg-amber-100"
-              )}>
-                {outstanding.some((i) => i.status === "overdue")
-                  ? <AlertTriangle className="w-4 h-4 text-destructive" aria-hidden="true" />
-                  : <Clock className="w-4 h-4 text-amber-600" aria-hidden="true" />
-                }
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 bg-amber-100">
+                <Clock className="w-4 h-4 text-amber-600" aria-hidden="true" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-foreground">
-                  {outstanding.some((i) => i.status === "overdue") ? "Overdue balance" : "Outstanding balance"}
-                </p>
+                <p className="text-sm font-semibold text-foreground">Annual collection fee</p>
                 <p className="text-2xl font-bold mt-0.5">{formatEur(totalDue)}</p>
               </div>
+            </div>
+            <div className="mb-4 rounded-xl border border-primary/20 bg-white px-4 py-3 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-wide text-primary">Potential savings</p>
+              <p className="text-sm font-medium text-foreground mt-1">
+                In higher-sorting areas, this payment is expected to be about {formatEur(expectedLowerPayment)} lower.
+              </p>
             </div>
             <Button
               className="w-full"

@@ -10,6 +10,7 @@ import IncidentReporting from "@/pages/citizen/IncidentReporting"
 import Education from "@/pages/citizen/Education"
 import Rewards from "@/pages/citizen/Rewards"
 import Payments from "@/pages/citizen/Payments"
+import AreaMap from "@/pages/citizen/AreaMap"
 
 // Municipality
 import { AppLayout } from "@/components/layout/AppLayout"
@@ -52,6 +53,8 @@ function CitizenApp() {
         <Route path="education" element={<Education />} />
         <Route path="rewards" element={<Rewards />} />
         <Route path="pay" element={<Payments />} />
+        <Route path="area-map" element={<AreaMap />} />
+        <Route path="performance-map" element={<AreaMap />} />
       </Routes>
     </CitizenLayout>
   )

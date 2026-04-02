@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
+import { Link } from "react-router-dom"
 import { Star, Award, Users, TrendingUp } from "lucide-react"
 
 const badges = [
@@ -12,10 +13,10 @@ const badges = [
 ]
 
 const leaderboard = [
-  { rank: 1, zone: "Old Quarter", points: 1480, change: "up" },
-  { rank: 2, zone: "Northgate", points: 1240, change: "same" },
-  { rank: 3, zone: "Riverside", points: 1105, change: "up" },
-  { rank: 4, zone: "Market Square", points: 940, change: "down" },
+  { rank: 1, zone: "Old Quarter", recyclingRate: 72, points: 1480, change: "up" },
+  { rank: 2, zone: "Northgate", recyclingRate: 61, points: 1240, change: "same" },
+  { rank: 3, zone: "Riverside", recyclingRate: 58, points: 1105, change: "up" },
+  { rank: 4, zone: "Market Square", recyclingRate: 49, points: 940, change: "down" },
 ]
 
 export default function Rewards() {
@@ -60,9 +61,14 @@ export default function Rewards() {
 
       {/* Zone leaderboard */}
       <div>
-        <div className="flex items-center gap-2 mb-3">
-          <Users className="w-4 h-4 text-primary" />
-          <p className="text-sm font-semibold">Zone Leaderboard — March</p>
+        <div className="flex items-center justify-between gap-3 mb-3">
+          <div className="flex items-center gap-2">
+            <Users className="w-4 h-4 text-primary" />
+            <p className="text-sm font-semibold">Zone Leaderboard — March</p>
+          </div>
+          <Link to="/citizen/performance-map" className="text-xs font-medium text-primary hover:underline">
+            See map
+          </Link>
         </div>
         <div className="space-y-2">
           {leaderboard.map((entry) => (
@@ -73,10 +79,11 @@ export default function Rewards() {
                 </span>
                 <div className="flex-1">
                   <p className="text-sm font-medium">{entry.zone}</p>
+                  <p className="text-[11px] text-muted-foreground">{entry.points.toLocaleString()} reward pts</p>
                 </div>
                 <div className="flex items-center gap-1.5">
                   {entry.change === "up" && <TrendingUp className="w-3 h-3 text-primary" />}
-                  <span className="text-sm font-semibold">{entry.points.toLocaleString()}</span>
+                  <span className="text-sm font-semibold">{entry.recyclingRate}%</span>
                 </div>
               </CardContent>
             </Card>
