@@ -95,12 +95,6 @@ export default function CitizenHome() {
           ))}
         </div>
       </div>
-
-      {/* Tip */}
-      <div className="rounded-lg bg-muted/30 border px-4 py-3">
-        <p className="text-[11px] font-semibold uppercase tracking-wide text-muted-foreground mb-1">Did you know?</p>
-        <p className="text-xs text-muted-foreground">Plastic bags should NOT go in the plastic bin — they jam sorting machines. Return them to supermarket collection points.</p>
-      </div>
     </div>
   )
 }

@@ -462,17 +462,6 @@ export default function Payments() {
           </div>
         )}
       </section>
-
-      {/* Help note */}
-      <div className="rounded-xl bg-muted/40 border px-4 py-3">
-        <p className="text-xs font-semibold text-foreground mb-0.5">Questions about your invoice?</p>
-        <p className="text-xs text-muted-foreground">
-          Contact the Verdana municipality office at{" "}
-          <span className="text-primary font-medium">0800-VERDANA</span> or visit{" "}
-          <span className="text-primary font-medium">verdana.gov/waste</span>
-        </p>
-      </div>
-
       {/* Payment modal */}
       <PaymentModal
         open={modalOpen}

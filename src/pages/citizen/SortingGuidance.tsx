@@ -67,10 +67,6 @@ export default function SortingGuidance() {
           </Card>
         ))}
       </div>
-
-      {!query && (
-        <p className="text-xs text-center text-muted-foreground">Showing popular items. Start typing to search all items.</p>
-      )}
     </div>
   )
 }
