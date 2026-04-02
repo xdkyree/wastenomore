@@ -27,9 +27,9 @@ export function CitizenLayout({ children }: CitizenLayoutProps) {
   }, [location.pathname])
 
   return (
-    <div className="min-h-screen bg-background flex justify-center md:items-center md:p-4">
+    <div className="h-[100dvh] overflow-hidden bg-background flex justify-center md:min-h-screen md:h-auto md:items-center md:p-4">
       <AccessibilityToolbar showSpeak placement="bottom-above-nav" />
-      <div className="relative w-full min-h-screen bg-white flex flex-col shadow-lg md:h-[calc(100vh-2rem)] md:w-auto md:min-h-0 md:aspect-[9/19.5] md:max-w-none md:overflow-hidden md:rounded-[2rem] md:border">
+      <div className="relative w-full h-[100dvh] overflow-hidden bg-white flex flex-col shadow-lg md:h-[calc(100vh-2rem)] md:w-auto md:min-h-0 md:aspect-[9/19.5] md:max-w-none md:rounded-[2rem] md:border">
         {/* Status bar area */}
         <div className={cn("flex items-center justify-between px-5 bg-primary", simpleMode ? "h-16" : "h-12")}>
           <span className={cn("text-white font-semibold tracking-wide", simpleMode ? "text-base" : "text-sm")}>WASTENOMORE</span>
@@ -57,13 +57,13 @@ export function CitizenLayout({ children }: CitizenLayoutProps) {
         </div>
 
         {/* Page content — id used by TTS to read only the relevant area */}
-        <div id="citizen-page-content" className="mobile-app-scroll flex-1 overflow-y-auto pb-24">
+        <div id="citizen-page-content" className="mobile-app-scroll flex-1 min-h-0 overflow-y-auto pb-24">
           {children}
         </div>
 
         {/* Bottom nav */}
         <nav
-          className="absolute bottom-0 left-0 w-full border-t bg-white"
+          className="absolute bottom-0 left-0 z-20 w-full border-t bg-white"
           aria-label="Main navigation"
           role="navigation"
         >
