@@ -86,33 +86,30 @@ export default function AreaMap() {
 
       <Card className="border-primary/20 bg-primary/5">
         <CardContent className="p-4 space-y-3">
-          <div className="flex items-start justify-between gap-3">
-            <div>
-              <p className="text-sm font-semibold">Your area is below the local average</p>
-              <p className="text-xs text-muted-foreground mt-1">
-                Northgate is sorting {sortingGap}% less waste than the nearby average, which is adding about {extraCost} PLN to the monthly fee.
-              </p>
-            </div>
-            <Badge className="border-0 bg-white text-primary">Action needed</Badge>
+          <div>
+            <p className="text-sm font-semibold">Your area is below the local average</p>
+            <p className="text-xs text-muted-foreground mt-1">
+              Northgate is sorting {sortingGap}% less waste than the nearby average, which is adding about {extraCost} PLN to the monthly fee.
+            </p>
           </div>
 
           <div className="grid grid-cols-2 gap-3">
-            <div className="rounded-xl bg-white p-3">
-              <div className="flex items-center gap-2 text-muted-foreground">
+            <div className="rounded-xl border border-destructive/20 bg-destructive/5 p-3">
+              <div className="flex items-center gap-2 text-destructive">
                 <ArrowDownRight className="h-4 w-4 text-destructive" />
                 <span className="text-[11px] font-medium uppercase tracking-wide">Sorting gap</span>
               </div>
-              <p className="mt-2 text-2xl font-bold">{sortingGap}%</p>
-              <p className="text-[11px] text-muted-foreground">versus nearby average</p>
+              <p className="mt-2 text-2xl font-bold text-destructive">{sortingGap}%</p>
+              <p className="text-[11px] text-destructive/80">versus nearby average</p>
             </div>
 
-            <div className="rounded-xl bg-white p-3">
-              <div className="flex items-center gap-2 text-muted-foreground">
-                <Wallet className="h-4 w-4 text-primary" />
+            <div className="rounded-xl border border-destructive/20 bg-destructive/5 p-3">
+              <div className="flex items-center gap-2 text-destructive">
+                <Wallet className="h-4 w-4 text-destructive" />
                 <span className="text-[11px] font-medium uppercase tracking-wide">Extra cost</span>
               </div>
-              <p className="mt-2 text-2xl font-bold">{extraCost} PLN</p>
-              <p className="text-[11px] text-muted-foreground">above the best-performing area</p>
+              <p className="mt-2 text-2xl font-bold text-destructive">{extraCost} PLN</p>
+              <p className="text-[11px] text-destructive/80">above the best-performing area</p>
             </div>
           </div>
         </CardContent>
