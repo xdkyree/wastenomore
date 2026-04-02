@@ -19,7 +19,7 @@ const quickActions = [
   { label: "Pickup Schedule", icon: Calendar, href: "/citizen/schedule", color: "bg-primary", desc: "Next collection and reminders" },
   { label: "Performance Map", icon: Map, href: "/citizen/performance-map", color: "bg-emerald-600", desc: "Area trends near you" },
   { label: "Education", icon: BookOpen, href: "/citizen/education", color: "bg-sky-500", desc: "Tips & local news" },
-  { label: "Rewards", icon: Star, href: "/citizen/rewards", color: "bg-amber-500", desc: "See your ranking and badges" },
+  { label: "Leaderboard", icon: Star, href: "/citizen/rewards", color: "bg-amber-500", desc: "See your ranking and badges" },
 ]
 
 export default function CitizenHome() {

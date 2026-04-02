@@ -1,11 +1,10 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
-import { AlertCircle, CheckCircle2, Camera } from "lucide-react"
+import { AlertCircle, CheckCircle2, Camera, MapPin } from "lucide-react"
 
 const incidentTypes = [
   { value: "overflow", label: "Overflowing bin" },
@@ -24,7 +23,7 @@ export default function IncidentReporting() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (type && location) setSubmitted(true)
+    if (type) setSubmitted(true)
   }
 
   if (submitted) {
@@ -40,7 +39,7 @@ export default function IncidentReporting() {
         <Card className="w-full text-left border-accent bg-accent/20">
           <CardContent className="p-4 space-y-1 text-xs">
             <p><span className="font-medium">Type:</span> {incidentTypes.find(t => t.value === type)?.label}</p>
-            <p><span className="font-medium">Location:</span> {location}</p>
+            <p><span className="font-medium">Location:</span> {location || "Bin identified by QR or photo"}</p>
             {description && <p><span className="font-medium">Details:</span> {description}</p>}
             <p><span className="font-medium">Status:</span> Submitted — Awaiting triage</p>
           </CardContent>
@@ -65,6 +64,11 @@ export default function IncidentReporting() {
         Identify Bin by QR
       </Button>
 
+      <Button type="button" variant="outline" className="w-full justify-center gap-2 border-dashed">
+        <MapPin className="w-4 h-4" />
+        Select location on map instead
+      </Button>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-1.5">
           <Label>Type of issue *</Label>
@@ -78,16 +82,6 @@ export default function IncidentReporting() {
               ))}
             </SelectContent>
           </Select>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label>Location *</Label>
-          <Input
-            placeholder="e.g. Northgate, near the school"
-            value={location}
-            onChange={e => setLocation(e.target.value)}
-            required
-          />
         </div>
 
         <div className="space-y-1.5">
