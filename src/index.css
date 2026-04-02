@@ -183,6 +183,17 @@ html.reduce-motion *::after {
   scroll-behavior: auto !important;
 }
 
+/* Hide desktop scrollbar chrome inside the simulated mobile shell
+   while preserving scroll behaviour. */
+.mobile-app-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.mobile-app-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 /* ─── WINDOWS HIGH CONTRAST / FORCED COLORS ─────────────────────────
    Ensures the app remains usable in Windows HCM and similar modes.
    Use system color keywords so the OS controls all colours.

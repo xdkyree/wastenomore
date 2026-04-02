@@ -3,7 +3,8 @@ import { sortingGuideItems, wasteStreamColors, wasteStreamLabels } from "@/data/
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Search } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Search, Camera } from "lucide-react"
 
 export default function SortingGuidance() {
   const [query, setQuery] = useState("")
@@ -29,6 +30,11 @@ export default function SortingGuidance() {
           onChange={e => setQuery(e.target.value)}
         />
       </div>
+
+      <Button type="button" variant="outline" className="w-full gap-2">
+        <Camera className="w-4 h-4" />
+        Take a photo for sorting help
+      </Button>
 
       {query.length > 1 && results.length === 0 && (
         <Card>

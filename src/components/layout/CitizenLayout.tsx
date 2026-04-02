@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { cn } from "@/lib/utils"
-import { Calendar, Search, AlertCircle, BookOpen, Star, Home, CreditCard, LogOut } from "lucide-react"
+import { Search, AlertCircle, Home, CreditCard, LogOut } from "lucide-react"
 import { AccessibilityToolbar } from "@/components/shared/AccessibilityToolbar"
 import { useAccessibility } from "@/context/AccessibilityContext"
 
@@ -11,11 +11,8 @@ interface CitizenLayoutProps {
 
 const navItems = [
   { label: "Home",     href: "/citizen",           icon: Home },
-  { label: "Schedule", href: "/citizen/schedule",   icon: Calendar },
   { label: "Sort",     href: "/citizen/sort",       icon: Search },
   { label: "Report",   href: "/citizen/report",     icon: AlertCircle },
-  { label: "Learn",    href: "/citizen/education",  icon: BookOpen },
-  { label: "Rewards",  href: "/citizen/rewards",    icon: Star },
   { label: "Pay",      href: "/citizen/pay",        icon: CreditCard },
 ]
 
@@ -60,7 +57,7 @@ export function CitizenLayout({ children }: CitizenLayoutProps) {
         </div>
 
         {/* Page content — id used by TTS to read only the relevant area */}
-        <div id="citizen-page-content" className="flex-1 overflow-y-auto pb-24">
+        <div id="citizen-page-content" className="mobile-app-scroll flex-1 overflow-y-auto pb-24">
           {children}
         </div>
 
